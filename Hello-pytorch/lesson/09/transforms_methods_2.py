@@ -6,7 +6,7 @@
 # @brief      : transforms方法二
 """
 import os
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+BASE_DIR = os.path.dirname(__file__)
 from matplotlib import pyplot as plt
 from torch.utils.data import DataLoader
 import torchvision.transforms as transforms
@@ -14,8 +14,6 @@ import torchvision.transforms as transforms
 os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
 path_lenet = os.path.abspath(os.path.join(BASE_DIR, "..", "..", "model", "lenet.py"))
 path_tools = os.path.abspath(os.path.join(BASE_DIR, "..", "..", "tools", "common_tools.py"))
-assert os.path.exists(path_lenet), "{}不存在，请将lenet.py文件放到 {}".format(path_lenet, os.path.dirname(path_lenet))
-assert os.path.exists(path_tools), "{}不存在，请将common_tools.py文件放到 {}".format(path_tools, os.path.dirname(path_tools))
 
 import sys
 hello_pytorch_DIR = os.path.join(os.path.dirname(__file__), "..", "..")
