@@ -7,7 +7,7 @@ class LeNetSequential(nn.Module):
     def __init__(self, classes):
         super().__init__()
         self.features = nn.Sequential(
-            nn.Conv2d(3, 6, 5),  # TODO:为什么是3,6,5?
+            nn.Conv2d(3, 6, 5),
             nn.ReLU(),
             nn.MaxPool2d(kernel_size=2, stride=2),
             nn.Conv2d(6, 16, 5),

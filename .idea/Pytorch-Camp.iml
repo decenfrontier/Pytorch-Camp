@@ -2,6 +2,7 @@
 <module type="PYTHON_MODULE" version="4">
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/Hello-pytorch" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/Hello-pytorch/data" />
     </content>
     <orderEntry type="jdk" jdkName="Python 3.7 (pytorch)" jdkType="Python SDK" />
