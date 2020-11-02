@@ -1,25 +1,25 @@
 import os
 import sys
+import numpy as np
 import torch
 import torch.nn as nn
-from torchvision import transforms
 from torch.utils.data import DataLoader
+import torchvision.transforms as transforms
 import torch.optim as optim
 from matplotlib import pyplot as plt
-import numpy as np
-
-os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
-
-hello_pytorch_dir = os.path.join(os.path.dirname(__file__), "..", "..")
-sys.path.append(hello_pytorch_dir)
 
 from model.lenet import LeNet
 from tools.my_dataset import RMBDataset
 from tools.common_tools import transform_invert, set_seed
 
-set_seed(1)
+os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
+hello_pytorch_dir = os.path.join(os.path.dirname(__file__), "..", "..")
+sys.path.append(hello_pytorch_dir)
+
+set_seed(1)  # 设置随机种子
 rmb_label = {"1": 0, "100": 1}
 
+# 参数设置
 MAX_EPOCH = 10
 BATCH_SIZE = 16
 LR = 0.01
@@ -57,11 +57,12 @@ train_loader = DataLoader(dataset=train_data, batch_size=BATCH_SIZE, shuffle=Tru
 valid_loader = DataLoader(dataset=valid_data, batch_size=BATCH_SIZE)
 
 # ============================ step 2/5 模型 ============================
+
 net = LeNet(classes=2)
 net.initialize_weights()
 
 # ============================ step 3/5 损失函数 ============================
-loss_func = nn.CrossEntropyLoss()  # 选择损失函数
+criterion = nn.CrossEntropyLoss()                                                   # 选择损失函数
 
 # ============================ step 4/5 优化器 ============================
 optimizer = optim.SGD(net.parameters(), lr=LR, momentum=0.9)                        # 选择优化器
@@ -86,7 +87,7 @@ for epoch in range(MAX_EPOCH):
 
         # backward
         optimizer.zero_grad()
-        loss = loss_func(outputs, labels)
+        loss = criterion(outputs, labels)
         loss.backward()
 
         # update weights
@@ -119,7 +120,7 @@ for epoch in range(MAX_EPOCH):
             for j, data in enumerate(valid_loader):
                 inputs, labels = data
                 outputs = net(inputs)
-                loss = loss_func(outputs, labels)
+                loss = criterion(outputs, labels)
 
                 _, predicted = torch.max(outputs.data, 1)
                 total_val += labels.size(0)
@@ -146,3 +147,27 @@ plt.legend(loc='upper right')
 plt.ylabel('loss value')
 plt.xlabel('Iteration')
 plt.show()
+
+# ============================ inference ============================
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+test_dir = os.path.join(BASE_DIR, "test_data")
+
+test_data = RMBDataset(data_dir=test_dir, transform=valid_transform)
+valid_loader = DataLoader(dataset=test_data, batch_size=1)
+
+for i, data in enumerate(valid_loader):
+    # forward
+    inputs, labels = data
+    outputs = net(inputs)
+    _, predicted = torch.max(outputs.data, 1)
+
+    rmb = 1 if predicted.numpy()[0] == 0 else 100
+
+    img_tensor = inputs[0, ...]  # C H W
+    img = transform_invert(img_tensor, train_transform)
+    plt.imshow(img)
+    plt.title("LeNet got {} Yuan".format(rmb))
+    plt.show()
+    plt.pause(0.5)
+    plt.close()
