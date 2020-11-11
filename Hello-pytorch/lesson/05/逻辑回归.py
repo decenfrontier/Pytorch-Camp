@@ -1,15 +1,15 @@
 import os
-os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
 import torch
 import torch.nn as nn
 import matplotlib.pyplot as plt
 import numpy as np
 
+os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
 torch.manual_seed(10)
 
 # =================== 1 生成数据 ====================
 sample_nums = 100
-mean_value = 1.7
+mean_value = 1
 bias = 1
 n_data = torch.ones(sample_nums, 2)
 # 类别0 数据 shape=(100, 2)
@@ -63,7 +63,7 @@ for iteration in range(1000):
     # 绘图
     if iteration % 20 == 0:
         mask = y_pred.ge(0.5).float().squeeze()  # 以0.5为阈值进行分类
-        correct = (mask == train_y).sum()  # 计算正确预测的样本个数
+        correct = (mask == train_y).sum()       # 计算正确预测的样本个数
         acc = correct.item() / train_y.size(0)  # 计算分类准确率
 
         plt.scatter(x0.data.numpy()[:, 0], x0.data.numpy()[:, 1], c="r", label="class 0")
