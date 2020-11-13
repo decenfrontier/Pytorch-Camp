@@ -38,7 +38,7 @@ log_interval = 10
 val_interval = 1
 
 # ============================ step 1/5 数据 ============================
-split_dir = os.path.join(BASE_DIR, "..", "..", "data", "rmb_split")
+split_dir = os.path.join(hello_pytorch_dir, "data", "rmb_split")
 train_dir = os.path.join(split_dir, "train")
 valid_dir = os.path.join(split_dir, "valid")
 
