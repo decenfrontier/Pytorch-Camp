@@ -1,11 +1,4 @@
-# -*- coding: utf-8 -*-
-"""
-# @file name  : RMB_data_augmentation.py
-# @author     : TingsongYu https://github.com/TingsongYu
-# @date       : 2019-09-16 10:08:00
-# @brief      : 人民币分类模型数据增强实验
-"""
-import os
+import sys, os
 import numpy as np
 import torch
 import torch.nn as nn
@@ -14,20 +7,21 @@ import torchvision.transforms as transforms
 import torch.optim as optim
 from matplotlib import pyplot as plt
 
-os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
-BASE_DIR = os.path.dirname(__file__)
-path_lenet = os.path.abspath(os.path.join(BASE_DIR, "..", "..", "model", "lenet.py"))
-path_tools = os.path.abspath(os.path.join(BASE_DIR, "..", "..", "tools", "common_tools.py"))
-
-import sys
-hello_pytorch_DIR = os.path.join(os.path.dirname(__file__), "..", "..")
-sys.path.append(hello_pytorch_DIR)
-
 from model.lenet import LeNet
 from tools.my_dataset import RMBDataset
 from tools.common_tools import transform_invert, set_seed
 
-set_seed()  # 设置随机种子
+os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
+
+hello_pytorch_dir = os.path.join(__file__, "..", "..", "..")
+sys.path.append(hello_pytorch_dir)
+
+
+path_lenet = os.path.join(hello_pytorch_dir, "model", "lenet.py")
+path_tools = os.path.join(hello_pytorch_dir, "tools", "common_tools.py")
+
+
+set_seed(1)  # 设置随机种子
 rmb_label = {"1": 0, "100": 1}
 
 # 参数设置
@@ -183,9 +177,4 @@ for i, data in enumerate(valid_loader):
     plt.show()
     plt.pause(0.5)
     plt.close()
-
-
-
-
-
 

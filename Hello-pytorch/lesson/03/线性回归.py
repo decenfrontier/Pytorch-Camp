@@ -29,7 +29,7 @@ for iteration in range(1000):
     w.data.sub_(lr * w.grad)
     b.data.sub_(lr * b.grad)
 
-    # 清零张量的梯度
+    # # 清零张量的梯度
     w.grad.zero_()
     b.grad.zero_()
 

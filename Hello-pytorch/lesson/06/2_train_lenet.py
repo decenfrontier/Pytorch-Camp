@@ -8,20 +8,20 @@ import torchvision.transforms as transforms
 import torch.optim as optim
 from matplotlib import pyplot as plt
 
-os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
-
-BASE_DIR = os.path.dirname(__file__)
-path_lenet = os.path.join(BASE_DIR, "..", "..", "model", "lenet.py")
-path_tools = os.path.join(BASE_DIR, "..", "..", "tools", "common_tools.py")
-
-hello_pytorch_dir = os.path.join(os.path.dirname(__file__), "..", "..")
-sys.path.append(hello_pytorch_dir)
-
 from model.lenet import LeNet
 from tools.my_dataset import RMBDataset
 from tools.common_tools import set_seed
 
-set_seed()  # 设置随机种子
+
+os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
+hello_pytorch_dir = os.path.join(os.path.dirname(__file__), "..", "..")
+sys.path.append(hello_pytorch_dir)
+
+path_lenet = os.path.join(hello_pytorch_dir, "model", "lenet.py")
+path_tools = os.path.join(hello_pytorch_dir, "tools", "common_tools.py")
+
+
+set_seed(1)  # 设置随机种子
 rmb_label = {"1": 0, "100": 1}
 
 # 参数设置
@@ -32,7 +32,7 @@ log_interval = 10
 val_interval = 1
 
 # ============================ step 1/5 数据 ============================
-split_dir = os.path.join(BASE_DIR, "..", "..", "data", "rmb_split")
+split_dir = os.path.join(hello_pytorch_dir, "data", "rmb_split")
 train_dir = os.path.join(split_dir, "train")
 valid_dir = os.path.join(split_dir, "valid")
 

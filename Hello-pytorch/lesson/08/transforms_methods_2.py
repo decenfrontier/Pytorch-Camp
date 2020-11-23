@@ -1,23 +1,16 @@
-# -*- coding: utf-8 -*-
-"""
-# @file name  : transforms_methods_2.py
-# @author     : tingsongyu
-# @date       : 2019-09-12 10:08:00
-# @brief      : transforms方法二
-"""
-import os
-BASE_DIR = os.path.dirname(__file__)
+
+import sys, os
 from matplotlib import pyplot as plt
 from torch.utils.data import DataLoader
 import torchvision.transforms as transforms
 
-os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
-path_lenet = os.path.abspath(os.path.join(BASE_DIR, "..", "..", "model", "lenet.py"))
-path_tools = os.path.abspath(os.path.join(BASE_DIR, "..", "..", "tools", "common_tools.py"))
+hello_pytorch_dir = os.path.join(os.path.dirname(__file__), "..", "..")
+sys.path.append(hello_pytorch_dir)
 
-import sys
-hello_pytorch_DIR = os.path.join(os.path.dirname(__file__), "..", "..")
-sys.path.append(hello_pytorch_DIR)
+os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
+path_lenet = os.path.join(hello_pytorch_dir, "model", "lenet.py")
+path_tools = os.path.join(hello_pytorch_dir, "tools", "common_tools.py")
+
 
 from tools.my_dataset import RMBDataset
 from tools.common_tools import set_seed, transform_invert
@@ -35,8 +28,6 @@ rmb_label = {"1": 0, "100": 1}
 
 # ============================ step 1/5 数据 ============================
 split_dir = os.path.join("..", "..", "data", "rmb_split")
-if not os.path.exists(split_dir):
-    raise Exception(r"数据 {} 不存在, 回到lesson-06\1_split_dataset.py生成数据".format(split_dir))
 train_dir = os.path.join(split_dir, "train")
 valid_dir = os.path.join(split_dir, "valid")
 

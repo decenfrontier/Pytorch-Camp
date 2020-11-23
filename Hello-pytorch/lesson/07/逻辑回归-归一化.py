@@ -1,10 +1,12 @@
+import os
 import torch
 import torch.nn as nn
 import matplotlib.pyplot as plt
 import numpy as np
-torch.manual_seed(10)
-import os
+
 os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
+
+torch.manual_seed(10)
 lr = 0.01  # 学习率
 
 # 生成虚拟数据

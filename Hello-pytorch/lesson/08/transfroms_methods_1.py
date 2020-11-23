@@ -1,5 +1,4 @@
-import os
-import sys
+import os, sys
 import numpy as np
 import torch
 import random
@@ -10,13 +9,12 @@ from matplotlib import pyplot as plt
 
 os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
 
-BASE_DIR = os.path.dirname(__file__)
-path_lenet = os.path.join(BASE_DIR, "..", "..", "model", "lenet.py")
-path_tools = os.path.join(BASE_DIR, "..", "..", "tools", "common_tools.py")
-
-
 hello_pytorch_dir = os.path.join(os.path.dirname(__file__), "..", "..")
 sys.path.append(hello_pytorch_dir)
+
+path_lenet = os.path.join(hello_pytorch_dir, "model", "lenet.py")
+path_tools = os.path.join(hello_pytorch_dir, "tools", "common_tools.py")
+
 
 from tools.my_dataset import RMBDataset
 from tools.common_tools import set_seed, transform_invert
@@ -32,7 +30,7 @@ val_interval = 1
 rmb_label = {"1": 0, "100": 1}
 
 # ============================ step 1/5 数据 ============================
-split_dir = os.path.abspath(os.path.join("..", "..", "data", "rmb_split"))
+split_dir = os.path.join(hello_pytorch_dir, "data", "rmb_split")
 train_dir = os.path.join(split_dir, "train")
 valid_dir = os.path.join(split_dir, "valid")
 

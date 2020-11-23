@@ -1,23 +1,20 @@
-import os
+import os, sys
 import numpy as np
 import random
 import torchvision.transforms as transforms
 from PIL import Image
 from matplotlib import pyplot as plt
+
 from torch.utils.data import DataLoader
-
-os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
-
-BASE_DIR = os.path.dirname(__file__)
-path_lenet = os.path.join(BASE_DIR, "..", "..", "model", "lenet.py")
-path_tools = os.path.join(BASE_DIR, "..", "..", "tools", "common_tools.py")
-
-import sys
-hello_pytorch_DIR = os.path.join(os.path.dirname(__file__), "..", "..")
-sys.path.append(hello_pytorch_DIR)
-
 from tools.my_dataset import RMBDataset
 from tools.common_tools import set_seed, transform_invert
+
+os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
+hello_pytorch_dir = os.path.join(os.path.dirname(__file__), "..", "..")
+sys.path.append(hello_pytorch_dir)
+
+path_lenet = os.path.join(hello_pytorch_dir, "model", "lenet.py")
+path_tools = os.path.join(hello_pytorch_dir, "tools", "common_tools.py")
 
 set_seed(1)  # 设置随机种子
 
@@ -64,9 +61,7 @@ class AddPepperNoise(object):
 
 
 # ============================ step 1/5 数据 ============================
-split_dir = os.path.abspath(os.path.join(BASE_DIR, "..", "..", "data", "rmb_split"))
-if not os.path.exists(split_dir):
-    raise Exception(r"数据 {} 不存在, 回到lesson-06\1_split_dataset.py生成数据".format(split_dir))
+split_dir = os.path.join(hello_pytorch_dir, "data", "rmb_split")
 train_dir = os.path.join(split_dir, "train")
 valid_dir = os.path.join(split_dir, "valid")
 
@@ -108,8 +103,5 @@ for epoch in range(MAX_EPOCH):
         plt.show()
         plt.pause(0.5)
         plt.close()
-
-
-
 
 
