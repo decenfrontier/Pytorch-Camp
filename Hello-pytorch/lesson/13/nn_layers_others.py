@@ -50,8 +50,8 @@ if flag:
     print(f"pooling_img:{img_pool}")
 
 # ===== max unpool
-# flag = 1
-flag = 0
+flag = 1
+# flag = 0
 if flag:
     # pooling
     img_tensor = torch.randint(high=5, size=(1,1,4,4), dtype=torch.float)
@@ -69,8 +69,8 @@ if flag:
     print(f"img_unpool:\n{img_unpool}")
 
 # ===== linear
-flag = 1
-# flag = 0
+# flag = 1
+flag = 0
 if flag:
     inputs = torch.tensor([[1,2,3]], dtype=torch.float)
     linear_layer = nn.Linear(3,4)
@@ -86,9 +86,9 @@ if flag:
 
 
 # ======================== 可视化 =============================
-# print("池化前尺寸:{}\n 池化后尺寸:{}".format(img_tensor.shape, img_pool.shape))
-# img_pool = transform_invert(img_pool[0, 0:3, ...], img_transform)
-# img_raw = transform_invert(img_tensor.squeeze(), img_transform)
-# plt.subplot(121).imshow(img_raw)
-# plt.subplot(122).imshow(img_pool)
-# plt.show()
+print(f"池化前尺寸:{img_tensor.shape}\n池化后尺寸:{img_pool.shape}")
+img_pool = transform_invert(img_pool[0, 0:3, ...], img_transform)
+img_raw = transform_invert(img_tensor.squeeze(), img_transform)
+plt.subplot(121).imshow(img_raw)
+plt.subplot(122).imshow(img_pool)
+plt.show()

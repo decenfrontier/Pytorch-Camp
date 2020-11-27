@@ -5,7 +5,7 @@ from PIL import Image
 from torchvision import transforms
 from matplotlib import pyplot as plt
 
-os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
+# os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
 
 hello_pytorch_dir = os.path.join(os.path.dirname(__file__), "..", "..")
 sys.path.append(hello_pytorch_dir)

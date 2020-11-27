@@ -25,7 +25,7 @@ class LeNetSequential(nn.Module):
 
     def forward(self, x):
         x = self.features(x)
-        x = x.view(x.size()[0], -1)     # TODO:这里是什么意思?
+        x = x.view(x.size()[0], -1)
         x = self.classifier(x)
         return x
 
@@ -34,7 +34,7 @@ class LeNetSequentialOrderDict(nn.Module):
         super().__init__()
         self.features = nn.Sequential(OrderedDict({
             "conv1": nn.Conv2d(3, 6, 5),
-            "relu1": nn.ReLU(inplace=True),     # TODO:为什么这里需要原地操作?
+            "relu1": nn.ReLU(inplace=True),
             "pool1": nn.MaxPool2d(kernel_size=2, stride=2),
 
             "conv2": nn.Conv2d(6, 16, 5),

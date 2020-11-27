@@ -69,7 +69,7 @@ for iteration in range(1000):
         plt.scatter(x0.data.numpy()[:, 0], x0.data.numpy()[:, 1], c="r", label="class 0")
         plt.scatter(x1.data.numpy()[:, 0], x1.data.numpy()[:, 1], c="b", label="class 1")
 
-        w0, w1 = lr_net.features.weight[0]  # TODO: w0,w1是什么？
+        w0, w1 = lr_net.features.weight[0]
         w0, w1 = float(w0.item()), float(w1.item())
         plot_b = float(lr_net.features.bias[0].item())
         plot_x = np.arange(-6, 6, 0.1)
